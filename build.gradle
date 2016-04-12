@@ -1,0 +1,44 @@
+buildscript {
+  dependencies { repositories { jcenter() }
+    classpath"org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+  }
+}
+
+version = appVersion
+group = appGroup
+
+apply plugin: 'idea'
+apply plugin: 'java'
+
+jar {
+  baseName = 'spring-boot-embedded-redis'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = sourceCompatibility
+
+repositories {
+  jcenter()
+  maven { url 'https://repo.spring.io/snapshot' }
+  maven { url 'https://repo.spring.io/milestone' }
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+  }
+}
+
+apply plugin: 'spring-boot'
+
+dependencies {
+  compile "org.projectlombok:lombok:$lombokVersion",
+    "org.springframework.boot:spring-boot-starter-redis",
+    "com.github.kstyrc:embedded-redis:$redisEmbeddedVersion"
+
+  testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task wrapper(type: Wrapper) { gradleVersion = localGradleVersion }

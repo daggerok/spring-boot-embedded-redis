@@ -1,6 +1,7 @@
 buildscript {
-  dependencies { repositories { jcenter() }
-    classpath"org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+  dependencies {
+    repositories { jcenter() }
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
   }
 }
 
@@ -31,12 +32,12 @@ dependencyManagement {
   }
 }
 
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 dependencies {
   compile "org.projectlombok:lombok:$lombokVersion",
-    "org.springframework.boot:spring-boot-starter-redis",
-    "com.github.kstyrc:embedded-redis:$redisEmbeddedVersion"
+      "org.springframework.boot:spring-boot-starter-redis",
+      "com.github.kstyrc:embedded-redis:$redisEmbeddedVersion"
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
 }

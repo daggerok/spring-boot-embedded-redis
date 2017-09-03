@@ -1,4 +1,4 @@
-package embedded.redis;
+package daggerok.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +11,10 @@ import redis.embedded.RedisServer;
 @Configuration
 public class RedisCfg {
 
-    @Bean
-    public RedisServer redisServer() {
-        RedisServer.builder().reset();
+  @Bean
+  public RedisServer redisServer() {
+    RedisServer.builder().reset();
 
-        return RedisServer.builder().port(Protocol.DEFAULT_PORT).build();
-    }
+    return RedisServer.builder().port(Protocol.DEFAULT_PORT).build();
+  }
 }

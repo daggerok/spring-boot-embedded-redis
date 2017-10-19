@@ -1,12 +1,17 @@
 language: java
-jdk: oraclejdk8
+jdk:
+  - oraclejdk8
+  - openjdk8
+
 install: true
 script: bash gradlew clean build bootRun
+
 cache:
   directories:
     - .gradle
     - gradle
     - $HOME/.gradle
+
 notifications: # always / change / never
   on_failure: never
   on_success: never

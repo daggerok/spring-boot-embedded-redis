@@ -1,45 +1,41 @@
 buildscript {
-  dependencies {
-    repositories { jcenter() }
-    classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+  ext {
+    springBootVersion = "1.5.8.RELEASE"
+    redisEmbeddedVersion = "0.6"
   }
 }
 
-version = appVersion
-group = appGroup
-
-apply plugin: 'idea'
-apply plugin: 'java'
-
-jar {
-  baseName = 'spring-boot-embedded-redis'
+plugins {
+  id "idea"
+  id "java"
+  id "org.springframework.boot" version "1.5.8.RELEASE"
+  id "io.spring.dependency-management" version "1.0.3.RELEASE"
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = sourceCompatibility
+version = "0.0.2"
+group = "daggerok"
+
+targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-  jcenter()
-  maven { url 'https://repo.spring.io/snapshot' }
-  maven { url 'https://repo.spring.io/milestone' }
+  mavenCentral()
 }
 
-apply plugin: 'io.spring.dependency-management'
+dependencies {
+  compileOnly "org.projectlombok:lombok"
+  compile "org.springframework.boot:spring-boot-starter-data-redis",
+      "com.github.kstyrc:embedded-redis:$redisEmbeddedVersion"
+
+  testCompileOnly "org.projectlombok:lombok"
+  testCompile "org.springframework.boot:spring-boot-starter-test"
+}
 
 dependencyManagement {
   imports {
-    mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+    mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
   }
 }
 
-apply plugin: 'org.springframework.boot'
-
-dependencies {
-  compile "org.projectlombok:lombok:$lombokVersion",
-      "org.springframework.boot:spring-boot-starter-redis",
-      "com.github.kstyrc:embedded-redis:$redisEmbeddedVersion"
-
-  testCompile 'org.springframework.boot:spring-boot-starter-test'
+wrapper {
+  gradleVersion = "4.2.1"
 }
-
-task wrapper(type: Wrapper) { gradleVersion = localGradleVersion }
